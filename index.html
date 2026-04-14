@@ -28,11 +28,13 @@
             background: radial-gradient(circle at center, var(--emerald-light), var(--emerald));
         }
 
+        /* Scrollbar Styling */
         .card::-webkit-scrollbar { width: 5px; }
         .card::-webkit-scrollbar-track { background: rgba(197, 160, 89, 0.05); margin: 20px 0; }
         .card::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
         .card { scrollbar-width: thin; scrollbar-color: var(--gold) rgba(197, 160, 89, 0.05); }
 
+        /* Background Lantern Animation */
         #lantern-field { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
         .lantern {
             position: absolute; background: var(--lantern-glow);
@@ -46,6 +48,7 @@
             100% { transform: translateY(-120dvh) translateX(50px); opacity: 0; }
         }
 
+        /* Petal Rain Animation */
         #petal-container { position: fixed; inset: 0; z-index: 99; pointer-events: none; }
         .petal {
             position: absolute; top: -10%; width: 16px; height: 18px;
@@ -53,19 +56,36 @@
             box-shadow: inset 2px -2px 5px rgba(0,0,0,0.3); opacity: 0;
         }
 
-        /* Music Control UI */
+        /* Fixed Music Control - Optimized for Mobile */
         .music-control {
-            position: fixed; top: 20px; right: 20px; z-index: 100;
-            width: 40px; height: 40px; background: rgba(1, 46, 35, 0.8);
-            border: 1px solid var(--gold); border-radius: 50%;
-            display: none; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            position: fixed;
+            bottom: 30px;
+            right: 25px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            background: rgba(1, 46, 35, 0.9);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: none; /* Shown after envelope opens */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
         }
+        .music-control:active { transform: scale(0.9); }
         .music-control.playing { animation: pulse-gold 2s infinite; }
-        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
+        
+        @keyframes pulse-gold { 
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); } 
+            70% { box-shadow: 0 0 0 12px rgba(197, 160, 89, 0); } 
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } 
+        }
 
         .wrapper { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 10; padding: 20px; }
 
+        /* Envelope Styling */
         .envelope {
             position: relative; width: 95%; max-width: 500px; height: 340px; 
             background-color: #01362a;
@@ -92,6 +112,7 @@
         }
         .seal img { width: 100%; height: 100%; object-fit: contain; }
 
+        /* Main Invitation Card */
         .card {
             position: fixed; top: 100%; left: 50%; transform: translate(-50%, 0);
             width: 96vw; max-width: 600px; height: 92dvh; opacity: 0; visibility: hidden;
@@ -117,6 +138,7 @@
         .couple-illustration { width: 100%; max-width: 400px; margin: -15px auto 10px; overflow: hidden; }
         .couple-illustration img { width: 100%; height: auto; display: block; image-rendering: high-quality; }
 
+        /* Scratch Card Section */
         .scratch-box {
             position: relative; width: 100%; max-width: 320px; height: 170px; margin: 30px auto 10px;
             border-radius: 20px; overflow: hidden; background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.08);
@@ -126,6 +148,7 @@
 
         #marriage-text { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--emerald); margin-bottom: 5px; font-weight: 300; opacity:0; transition: 1s;}
         #wedding-date-revealed { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; letter-spacing: 3px; color: var(--gold); font-weight: 600; opacity:0; transition: 1s;}
+        
         .timer { display: flex; justify-content: center; gap: 15px; margin-top: 10px; opacity:0; transition: 1s;}
         .timer-unit span { display: block; font-size: 1.3rem; font-weight: 300; color: var(--emerald); }
         .timer-unit label { font-size: 0.55rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; }
@@ -133,7 +156,7 @@
 
         #post-scratch-content { opacity: 0; display: none; transition: opacity 1.5s ease; }
 
-        /* --- TIMELINE --- */
+        /* Timeline Section */
         .timeline-container { position: relative; max-width: 500px; margin: 30px auto 5px; padding: 0; }
         .creeper-svg { position: absolute; left: 50%; top: 0; bottom: 0; width: 60px; height: 100%; transform: translateX(-50%); z-index: 1; }
         #vine-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
@@ -157,6 +180,7 @@
         .event-time { color: var(--gold); font-weight: 700; font-size: 0.7rem; letter-spacing: 1px; }
         .spacer { width: 40%; }
 
+        /* Maps & Buttons */
         .map-wrapper { width: 100%; max-width: 400px; margin: 20px auto; border-radius: 15px; overflow: hidden; border: 2px solid var(--gold-light); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
 
         .btn {
@@ -178,12 +202,14 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto">
+    <audio id="bgMusic" loop preload="auto" playsinline>
         <source src="https://raw.githubusercontent.com/Vara-Kumar/wedding-invite/refs/heads/main/ar-rahman-instrumental-music-collection-night-shift-melody_jE1o0y7c.mp3" type="audio/mpeg">
     </audio>
 
     <div id="musicToggle" class="music-control" onclick="toggleMusic()">
-        <svg fill="var(--gold)" width="20px" height="20px" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        <svg id="musicIcon" fill="var(--gold)" width="24px" height="24px" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
     </div>
 
     <div id="lantern-field"></div>
@@ -200,8 +226,11 @@
         <div class="card" id="card">
             <div style="width: 70px; height: 70px; margin: 0 auto 5px;"><img src="https://drive.google.com/thumbnail?id=1qlH_xifYWF4L483VX8GQlibq7gTI41ss&sz=s1000" style="width:100%" alt="Ganesha"></div>
             <div style="font-size: 0.7rem; color: var(--gold); letter-spacing: 2px; font-weight: 400; text-transform: uppercase; margin-bottom: 10px;">Om Shri Ganeshaya Namah:</div>
+            
             <p id="guestNameDisplay" style="margin: 10px 0; color: var(--emerald); font-weight: 400;"></p>
+            
             <div style="width: 70px; height: 70px; margin: 0 auto 20px;"><img src="https://drive.google.com/thumbnail?id=1beQfliXqIi0uLmmmbHoGIh6n1jwslWDW&sz=s1000" style="width:100%; object-fit: contain;" alt="Logo"></div>
+            
             <p style="font-size: 0.5rem; letter-spacing: 2px; font-weight: 600; color: var(--emerald); margin: 0;">TWO HEARTS, ONE JOURNEY</p>
             <p style="font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; color: var(--emerald); margin-top: 15px;">YOU ARE CORDIALLY INVITED TO CELEBRATE</p>
             
@@ -312,49 +341,57 @@
         const guest = urlParams.get('guest');
         if (guest) document.getElementById('guestNameDisplay').innerText = `Hi ${guest}, join us for...`;
 
-        // Haptic Feedback Helper
         function haptic(ms) { if (navigator.vibrate) navigator.vibrate(ms); }
 
-        // --- NEW SMOOTH AUDIO FADE LOGIC ---
         const music = document.getElementById('bgMusic');
         const mBtn = document.getElementById('musicToggle');
-        let fadeInterval;
-
-        function fadeAudio(targetVolume, duration, callback) {
-            clearInterval(fadeInterval);
-            const step = 0.01;
-            const intervalTime = duration / (Math.abs(targetVolume - music.volume) / step);
-            
-            fadeInterval = setInterval(() => {
-                if (music.volume < targetVolume) {
-                    music.volume = Math.min(targetVolume, music.volume + step);
-                } else {
-                    music.volume = Math.max(targetVolume, music.volume - step);
-                }
-                if (music.volume === targetVolume) {
-                    clearInterval(fadeInterval);
-                    if (callback) callback();
-                }
-            }, intervalTime);
-        }
-
+        
         function toggleMusic() {
+            const steps = 20;
+            const interval = 50;
+
             if (music.paused) {
-                music.volume = 0; music.play();
-                fadeAudio(0.3,500); mBtn.classList.add('playing');
+                music.play().then(() => {
+                    mBtn.classList.add('playing');
+                    let vol = 0;
+                    let fadeIn = setInterval(() => {
+                        if (vol < 0.2) {
+                            vol += 0.05;
+                            music.volume = Math.min(0.2, vol);
+                        } else {
+                            clearInterval(fadeIn);
+                        }
+                    }, interval);
+                }).catch(err => {
+                    console.error("Playback failed:", err);
+                });
             } else {
-                fadeAudio(0, 1500, () => { music.pause(); mBtn.classList.remove('playing'); });
+                let vol = music.volume;
+                let fadeOut = setInterval(() => {
+                    if (vol > 0.05) {
+                        vol -= 0.05;
+                        music.volume = Math.max(0, vol);
+                    } else {
+                        music.pause();
+                        mBtn.classList.remove('playing');
+                        clearInterval(fadeOut);
+                    }
+                }, interval);
             }
             haptic(15);
         }
 
+        // Triggered by Envelope Tap - Vital for iOS
         function openInv() {
             haptic(50);
-            music.volume = 0; music.play().then(() => {
-                fadeAudio(0.3,500);
-                mBtn.style.display = 'flex';
+            
+            // Critical for iOS: Start music on user interaction
+            music.volume = 0.2;
+            music.play().then(() => {
                 mBtn.classList.add('playing');
-            });
+            }).catch(e => console.log("Auto-play blocked, waiting for manual toggle"));
+            
+            mBtn.style.display = 'flex';
             document.getElementById('envelope').classList.add('open');
             setTimeout(() => {
                 document.getElementById('card').classList.add('reveal');
@@ -362,6 +399,7 @@
             }, 300); 
         }
 
+        // Initialize Background Lanterns
         const field = document.getElementById('lantern-field');
         for(let i=0; i<18; i++) {
             const l = document.createElement('div');
@@ -370,6 +408,7 @@
             l.style.width = size + 'px'; l.style.height = size + 'px';
             l.style.left = Math.random() * 100 + 'vw';
             l.style.animationDuration = (Math.random() * 8 + 12) + 's';
+            l.style.animationDelay = (Math.random() * 5) + 's';
             field.appendChild(l);
         }
 
@@ -382,13 +421,17 @@
                     petal.style.left = Math.random() * 100 + 'vw';
                     container.appendChild(petal);
                     const duration = Math.random() * 4000 + 4000;
-                    petal.animate([{ transform: `translateY(0) rotate(0deg)`, opacity: 0.8 },{ transform: `translateY(110dvh) rotate(1080deg)`, opacity: 0 }], { duration: duration, easing: 'linear' });
+                    petal.animate([
+                        { transform: `translateY(0) rotate(0deg)`, opacity: 0.8 },
+                        { transform: `translateY(110dvh) rotate(1080deg)`, opacity: 0 }
+                    ], { duration: duration, easing: 'linear' });
                     setTimeout(() => petal.remove(), duration);
                 }, i * 120);
             }
         }
+
         function navigate() {
-            const url = `https://www.google.com/maps/search/?api=1&query=PVK+Prime+Conventions+Gajuwaka+Visakhapatnam`;
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${VENUE_COORDS.lat},${VENUE_COORDS.lng}`;
             window.open(url, '_blank');
         }
 
@@ -399,18 +442,30 @@
             const start = "20260503T190000"; 
             const end = "20260503T235900";   
             const isAndroid = /Android/i.test(navigator.userAgent);
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
             if (isAndroid) {
                 const googleUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
                 window.open(googleUrl, '_blank');
-            } else if (isIOS) {
-                const icsContent = ["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT",`DTSTART:${start}`,`DTEND:${end}`,`SUMMARY:${title}`,`DESCRIPTION:${details}`,`LOCATION:${location}`,"END:VEVENT","END:VCALENDAR"].join("\n");
-                window.location.href = "data:text/calendar;charset=utf8," + encodeURIComponent(icsContent);
             } else {
-                const icsData = ["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT",`DTSTART:${start}`,`DTEND:${end}`,`SUMMARY:${title}`,`DESCRIPTION:${details}`,`LOCATION:${location}`,"END:VEVENT","END:VCALENDAR"].join("\n");
+                const icsData = [
+                    "BEGIN:VCALENDAR",
+                    "VERSION:2.0",
+                    "BEGIN:VEVENT",
+                    `DTSTART:${start}`,
+                    `DTEND:${end}`,
+                    `SUMMARY:${title}`,
+                    `DESCRIPTION:${details}`,
+                    `LOCATION:${location}`,
+                    "END:VEVENT",
+                    "END:VCALENDAR"
+                ].join("\n");
                 const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
                 const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob); link.setAttribute('download', 'wedding_invite.ics'); document.body.appendChild(link); link.click(); document.body.removeChild(link);
+                link.href = window.URL.createObjectURL(blob); 
+                link.setAttribute('download', 'wedding_invite.ics'); 
+                document.body.appendChild(link); 
+                link.click(); 
+                document.body.removeChild(link);
             }
         }
 
@@ -418,21 +473,32 @@
             const canvas = document.getElementById('scratch-canvas');
             const ctx = canvas.getContext('2d');
             let isDrawing = false; let revealed = false;
+            
             const metallicGradient = ctx.createLinearGradient(0, 0, 320, 170);
-            metallicGradient.addColorStop(0, '#BF953F'); metallicGradient.addColorStop(0.2, '#FCF6BA'); 
-            metallicGradient.addColorStop(0.4, '#B38728'); metallicGradient.addColorStop(0.6, '#FBF5B7'); 
-            metallicGradient.addColorStop(0.8, '#AA771C'); metallicGradient.addColorStop(1, '#D4AF37');   
-            ctx.fillStyle = metallicGradient; ctx.fillRect(0, 0, 320, 170);
+            metallicGradient.addColorStop(0, '#BF953F'); 
+            metallicGradient.addColorStop(0.2, '#FCF6BA'); 
+            metallicGradient.addColorStop(0.4, '#B38728'); 
+            metallicGradient.addColorStop(0.6, '#FBF5B7'); 
+            metallicGradient.addColorStop(0.8, '#AA771C'); 
+            metallicGradient.addColorStop(1, '#D4AF37');   
+            
+            ctx.fillStyle = metallicGradient; 
+            ctx.fillRect(0, 0, 320, 170);
 
             function scratch(e) {
                 if(!isDrawing) return;
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
                 const scaleY = canvas.height / rect.height;
-                const x = ((e.touches ? e.touches[0].clientX : e.clientX) - rect.left) * scaleX;
-                const y = ((e.touches ? e.touches[0].clientY : e.clientY) - rect.top) * scaleY;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = (clientX - rect.left) * scaleX;
+                const y = (clientY - rect.top) * scaleY;
+                
                 ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); 
+                ctx.arc(x, y, 25, 0, Math.PI*2); 
+                ctx.fill();
                 if(Math.random() > 0.85) haptic(5);
             }
 
@@ -440,22 +506,29 @@
                 const data = ctx.getImageData(0, 0, 320, 170).data;
                 let count = 0;
                 for (let i = 3; i < data.length; i += 4) if (data[i] === 0) count++;
-                if (count > (320 * 170 * 0.70) && !revealed) {
-                    revealed = true; ctx.clearRect(0, 0, 320, 170);
+                if (count > (320 * 170 * 0.60) && !revealed) {
+                    revealed = true; 
+                    ctx.clearRect(0, 0, 320, 170);
                     haptic([40, 30, 40]);
                     startPetalRain(); 
                     confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#8B0000', '#D4AF37', '#FFD700', '#f4e8d1'], gravity: 1.2 });
+                    
                     document.getElementById('marriage-text').style.opacity = '1';
                     document.getElementById('wedding-date-revealed').style.opacity = '1';
                     document.getElementById('timer').style.opacity = '1';
                     document.getElementById('big-day-label').style.opacity = '1'; 
                     document.getElementById('scratch-instr').style.opacity = '0';
+                    
                     const postContent = document.getElementById('post-scratch-content');
                     postContent.style.display = 'block';
-                    setTimeout(() => { postContent.style.opacity = '1'; initScrollAnimations(); }, 100);
+                    setTimeout(() => { 
+                        postContent.style.opacity = '1'; 
+                        initScrollAnimations(); 
+                    }, 100);
                     startTimer();
                 }
             }
+
             canvas.onmousedown = () => isDrawing = true;
             window.onmouseup = () => isDrawing = false;
             canvas.onmousemove = (e) => { scratch(e); checkScratchStatus(); };
@@ -472,7 +545,9 @@
                     if(e.isIntersecting) {
                         e.target.classList.add('is-visible');
                         vine.style.strokeDashoffset = '0';
-                        decos.forEach((d, index) => { setTimeout(() => d.style.opacity = "1", index * 100 + 500); });
+                        decos.forEach((d, index) => { 
+                            setTimeout(() => d.style.opacity = "1", index * 100 + 500); 
+                        });
                         haptic(10);
                     }
                 });
@@ -484,11 +559,12 @@
             const target = new Date("May 3, 2026 19:00:00").getTime();
             setInterval(() => {
                 const now = new Date().getTime();
-                const d = target - now; if (d < 0) return;
-                document.getElementById('days').innerText = Math.floor(d / 86400000);
-                document.getElementById('hours').innerText = Math.floor((d % 86400000) / 3600000);
-                document.getElementById('mins').innerText = Math.floor((d % 3600000) / 60000);
-                document.getElementById('seconds').innerText = Math.floor((d % 60000) / 1000);
+                const d = target - now; 
+                if (d < 0) return;
+                document.getElementById('days').innerText = String(Math.floor(d / 86400000)).padStart(2, '0');
+                document.getElementById('hours').innerText = String(Math.floor((d % 86400000) / 3600000)).padStart(2, '0');
+                document.getElementById('mins').innerText = String(Math.floor((d % 3600000) / 60000)).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(Math.floor((d % 60000) / 1000)).padStart(2, '0');
             }, 1000);
         }
     </script>
