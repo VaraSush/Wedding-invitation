@@ -53,6 +53,17 @@
             box-shadow: inset 2px -2px 5px rgba(0,0,0,0.3); opacity: 0;
         }
 
+        /* Music Control UI */
+        .music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            width: 40px; height: 40px; background: rgba(1, 46, 35, 0.8);
+            border: 1px solid var(--gold); border-radius: 50%;
+            display: none; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+        .music-control.playing { animation: pulse-gold 2s infinite; }
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(197, 160, 89, 0); } 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); } }
+
         .wrapper { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 10; padding: 20px; }
 
         .envelope {
@@ -125,14 +136,15 @@
         /* --- TIMELINE --- */
         .timeline-container { position: relative; max-width: 500px; margin: 30px auto 5px; padding: 0; }
         .creeper-svg { position: absolute; left: 50%; top: 0; bottom: 0; width: 60px; height: 100%; transform: translateX(-50%); z-index: 1; }
-        
+        #vine-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
+
         .event-row { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px; position: relative; z-index: 2; }
         .event-card { 
             width: 48%; padding: 5px; background: transparent; opacity: 0; 
             transition: 0.9s cubic-bezier(0.17, 0.55, 0.55, 1); display: flex; flex-direction: column; align-items: center; gap: 5px;
         }
-        .left-event { transform: translateX(-15px); text-align: center; }
-        .right-event { transform: translateX(15px); text-align: center; }
+        .left-event { transform: translateX(-30px); text-align: center; }
+        .right-event { transform: translateX(30px); text-align: center; }
         .event-row.is-visible .event-card { opacity: 1; transform: translateX(0); }
         
         .event-img { width: 50px; height: 50px; object-fit: contain; flex-shrink: 0; display: block; image-rendering: high-quality; }
@@ -154,16 +166,9 @@
             border: none; border-radius: 60px; width: 100%; max-width: 280px;
             position: relative; overflow: hidden; cursor: pointer; transition: 0.4s;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(1, 46, 35, 0.3);
-            opacity: 0.9;
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(1, 46, 35, 0.3); opacity: 0.9; }
         .btn-alt { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
-        .btn-alt:hover {
-            background: var(--gold);
-            color: var(--emerald);
-        }
+        .btn-alt:hover { background: var(--gold); color: var(--emerald); }
 
         #scratch-instr { font-size: 0.75rem; color: var(--gold); font-style: italic; margin-bottom: 10px; transition: opacity 0.5s;}
         .details-text { font-size: 0.95rem; line-height: 1.8; color: var(--soft-text); margin-top: 0px; padding-top: 15px; border-top: 1px solid rgba(0,0,0,0.05); }
@@ -176,6 +181,10 @@
     <audio id="bgMusic" loop preload="auto">
         <source src="https://raw.githubusercontent.com/Vara-Kumar/wedding-invite/refs/heads/main/ar-rahman-instrumental-music-collection-night-shift-melody_jE1o0y7c.mp3" type="audio/mpeg">
     </audio>
+
+    <div id="musicToggle" class="music-control" onclick="toggleMusic()">
+        <svg fill="var(--gold)" width="20px" height="20px" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </div>
 
     <div id="lantern-field"></div>
     <div id="petal-container"></div>
@@ -221,24 +230,24 @@
             <div id="post-scratch-content">
                 <div class="timeline-container" id="timeline">
                     <svg class="creeper-svg" viewBox="0 0 80 435" preserveAspectRatio="none">
-                        <path d="M40,0 C65,50 15,100 40,150 C65,200 15,250 40,300 C65,350 15,400 40,435" stroke="#023d2f" stroke-width="2.5" fill="none" />
-                        <text x="40" y="25" font-size="20" fill="#c5a059">✿</text>
-                        <text x="32" y="45" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="50" y="70" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="30" y="100" font-size="16" fill="#c5a059">✿</text>
-                        <text x="50" y="140" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="35" y="170" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="50" y="180" font-size="18" fill="#c5a059">✿</text>
-                        <text x="35" y="215" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="55" y="240" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="25" y="250" font-size="20" fill="#c5a059">✿</text>
-                        <text x="45" y="290" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="30" y="310" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="55" y="320" font-size="16" fill="#c5a059">✿</text>
-                        <text x="30" y="350" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="50" y="380" font-size="12" fill="var(--leaf-green)">🍃</text>
-                        <text x="35" y="400" font-size="18" fill="#c5a059">✿</text>
-                        <text x="45" y="430" font-size="12" fill="var(--leaf-green)">🍃</text>
+                        <path id="vine-path" d="M40,0 C65,50 15,100 40,150 C65,200 15,250 40,300 C65,350 15,400 40,435" stroke="#023d2f" stroke-width="2.5" fill="none" />
+                        <text class="timeline-deco" x="40" y="25" font-size="20" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="32" y="45" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="50" y="70" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="30" y="100" font-size="16" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="50" y="140" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="35" y="170" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="50" y="180" font-size="18" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="35" y="215" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="55" y="240" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="25" y="250" font-size="20" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="45" y="290" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="30" y="310" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="55" y="320" font-size="16" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="30" y="350" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="50" y="380" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
+                        <text class="timeline-deco" x="35" y="400" font-size="18" fill="#c5a059" opacity="0">✿</text>
+                        <text class="timeline-deco" x="45" y="430" font-size="12" fill="var(--leaf-green)" opacity="0">🍃</text>
                     </svg>
                     
                     <div class="event-row">
@@ -269,7 +278,7 @@
                             <div class="event-content">
                                 <span class="event-time">12:18 AM</span>
                                 <span class="event-name">Sumuhurtham</span>
-                                <small style="font-size:0.55rem; color:#999; letter-spacing: 0.5px;">FOLLOWING DAY</small>
+                                <small style="font-size:0.55rem; color:#484848; letter-spacing: 0.5px;">FOLLOWING DAY</small>
                             </div>
                         </div>
                         <div class="spacer"></div>
@@ -280,17 +289,15 @@
                     <strong style="color: var(--emerald); letter-spacing: 3px; font-size: 0.9rem;">THE CELEBRATION AT</strong><br>
                     PVK Prime Conventions, Viswaveswara Nagar, Auto Nagar, Gajuwaka, Vizag.
                 </div>
-
                 <div class="map-wrapper">
                     <iframe 
                         src="https://maps.google.com/maps?q=PVK%20Prime%20Conventions%2C%20Gajuwaka%2C%20Visakhapatnam&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                         width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-
                 <div style="margin-top: 15px;">
-                    <button id="navBtn" onclick="navigate()" class="btn">VIEW ON MAP</button><br>
-                    <button onclick="saveToCalendar()" class="btn btn-alt">SAVE TO CALENDAR</button>
+                    <button id="navBtn" onclick="haptic(20); navigate()" class="btn">VIEW ON MAP</button><br>
+                    <button onclick="haptic(20); saveToCalendar()" class="btn btn-alt">SAVE TO CALENDAR</button>
                 </div>
                 <div class="closing-message">We can't wait to celebrate our new beginning with you.</div>
                 <div class="thank-you">With Love</div>
@@ -304,6 +311,56 @@
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
         if (guest) document.getElementById('guestNameDisplay').innerText = `Hi ${guest}, join us for...`;
+
+        // Haptic Feedback Helper
+        function haptic(ms) { if (navigator.vibrate) navigator.vibrate(ms); }
+
+        // --- NEW SMOOTH AUDIO FADE LOGIC ---
+        const music = document.getElementById('bgMusic');
+        const mBtn = document.getElementById('musicToggle');
+        let fadeInterval;
+
+        function fadeAudio(targetVolume, duration, callback) {
+            clearInterval(fadeInterval);
+            const step = 0.01;
+            const intervalTime = duration / (Math.abs(targetVolume - music.volume) / step);
+            
+            fadeInterval = setInterval(() => {
+                if (music.volume < targetVolume) {
+                    music.volume = Math.min(targetVolume, music.volume + step);
+                } else {
+                    music.volume = Math.max(targetVolume, music.volume - step);
+                }
+                if (music.volume === targetVolume) {
+                    clearInterval(fadeInterval);
+                    if (callback) callback();
+                }
+            }, intervalTime);
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.volume = 0; music.play();
+                fadeAudio(0.3,500); mBtn.classList.add('playing');
+            } else {
+                fadeAudio(0, 1500, () => { music.pause(); mBtn.classList.remove('playing'); });
+            }
+            haptic(15);
+        }
+
+        function openInv() {
+            haptic(50);
+            music.volume = 0; music.play().then(() => {
+                fadeAudio(0.3,500);
+                mBtn.style.display = 'flex';
+                mBtn.classList.add('playing');
+            });
+            document.getElementById('envelope').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('card').classList.add('reveal');
+                initScratch();
+            }, 300); 
+        }
 
         const field = document.getElementById('lantern-field');
         for(let i=0; i<18; i++) {
@@ -330,7 +387,6 @@
                 }, i * 120);
             }
         }
-
         function navigate() {
             const url = `https://www.google.com/maps/search/?api=1&query=PVK+Prime+Conventions+Gajuwaka+Visakhapatnam`;
             window.open(url, '_blank');
@@ -358,23 +414,6 @@
             }
         }
 
-        function openInv() {
-            if (navigator.vibrate) navigator.vibrate(15);
-            const music = document.getElementById('bgMusic');
-            music.volume = 0; music.play().then(() => {
-                let vol = 0;
-                const fadeIn = setInterval(() => {
-                    if (vol < 0.2) { vol += 0.01; music.volume = vol; }
-                    else clearInterval(fadeIn);
-                }, 50);
-            });
-            document.getElementById('envelope').classList.add('open');
-            setTimeout(() => {
-                document.getElementById('card').classList.add('reveal');
-                initScratch();
-            }, 300); 
-        }
-
         function initScratch() {
             const canvas = document.getElementById('scratch-canvas');
             const ctx = canvas.getContext('2d');
@@ -394,7 +433,7 @@
                 const y = ((e.touches ? e.touches[0].clientY : e.clientY) - rect.top) * scaleY;
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI*2); ctx.fill();
-                if (navigator.vibrate) navigator.vibrate(10);
+                if(Math.random() > 0.85) haptic(5);
             }
 
             function checkScratchStatus() {
@@ -403,15 +442,14 @@
                 for (let i = 3; i < data.length; i += 4) if (data[i] === 0) count++;
                 if (count > (320 * 170 * 0.70) && !revealed) {
                     revealed = true; ctx.clearRect(0, 0, 320, 170);
+                    haptic([40, 30, 40]);
                     startPetalRain(); 
                     confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#8B0000', '#D4AF37', '#FFD700', '#f4e8d1'], gravity: 1.2 });
-                    
                     document.getElementById('marriage-text').style.opacity = '1';
                     document.getElementById('wedding-date-revealed').style.opacity = '1';
                     document.getElementById('timer').style.opacity = '1';
                     document.getElementById('big-day-label').style.opacity = '1'; 
                     document.getElementById('scratch-instr').style.opacity = '0';
-                    
                     const postContent = document.getElementById('post-scratch-content');
                     postContent.style.display = 'block';
                     setTimeout(() => { postContent.style.opacity = '1'; initScrollAnimations(); }, 100);
@@ -427,8 +465,17 @@
         }
 
         function initScrollAnimations() {
+            const vine = document.getElementById('vine-path');
+            const decos = document.querySelectorAll('.timeline-deco');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+                entries.forEach(e => { 
+                    if(e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        vine.style.strokeDashoffset = '0';
+                        decos.forEach((d, index) => { setTimeout(() => d.style.opacity = "1", index * 100 + 500); });
+                        haptic(10);
+                    }
+                });
             }, { threshold: 0.1 });
             document.querySelectorAll('.event-row').forEach(row => observer.observe(row));
         }
