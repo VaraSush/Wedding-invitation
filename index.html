@@ -339,8 +339,10 @@
         const VENUE_COORDS = { lat: 17.6835, lng: 83.1874 }; 
         const urlParams = new URLSearchParams(window.location.search);
         const guest = urlParams.get('guest');
-        if (guest) document.getElementById('guestNameDisplay').innerText = `Hi ${guest}, join us for...`;
-
+        if (guest) {
+            const displayName = decodeURIComponent(guest);
+            document.getElementById('guestNameDisplay').innerText = `Hi ${displayName}, join us for...`;
+        }
         function haptic(ms) { if (navigator.vibrate) navigator.vibrate(ms); }
 
         const music = document.getElementById('bgMusic');
@@ -431,7 +433,8 @@
         }
 
         function navigate() {
-            const url = `https://www.google.com/maps/dir/?api=1&destination=${VENUE_COORDS.lat},${VENUE_COORDS.lng}`;
+        // This URL format focuses on the location pin rather than starting directions
+            const url = `https://maps.google.com/maps?q=PVK%20Prime%20Conventions%2C%20Gajuwaka%2C%20Visakhapatnam&t=&z=15&ie=UTF8&iwloc=&output=embed6?q=${VENUE_COORDS.lat},${VENUE_COORDS.lng}`;
             window.open(url, '_blank');
         }
 
